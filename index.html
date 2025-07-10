@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css" />
+
+    <title>PPE GAME</title>
+</head>
+<body>
+
+   <body>
+  <div id="game-container">
+
+    <!--  Home Screen -->
+    <section id="home-screen">
+      <h1>PPE Memory Challenge</h1>
+      <label for="player-name">Enter Your Name:</label>
+      <input type="text" id="player-name" placeholder="Your Name" />
+
+      <p>Select a Character:</p>
+      <div class="character-select">
+        <img src="assets/avatars/Female_Homepage_NoBackground.svg" alt="Female Character" onclick="startGame('female')" />
+        <img src="assets/avatars/Male_HomePage_NoBackground.svg" alt="Male Character" onclick="startGame('male')" />
+      </div>
+    </section>
+
+    <!-- Level Screen -->
+    <section id="level-screen" class="hidden">
+      <h2 id="level-title">Level 1: Construction Site</h2>
+      <div id="timer">Time Left: 5:00</div>
+      <img id="level-bg" src="assets/backgrounds/construction.png" alt="Site Background" />
+      <div id="ppe-inventory">
+        <!-- Dynamically load PPE items here -->
+      </div>
+      <button onclick="submitPPE()">Enter Site</button>
+    </section>
+
+    <!-- Hazard Screen -->
+    <section id="hazard-screen" class="hidden">
+      <h2>Hazard Encountered!</h2>
+      <img id="hazard-img" src="" alt="Hazard Image" />
+      <p>You selected the wrong PPE. Restarting from Level 1...</p>
+      <button onclick="restartGame()">Restart</button>
+    </section>
+
+    <!-- Time’s Up Screen -->
+    <section id="timeout-screen" class="hidden">
+      <h2>Time’s Up!</h2>
+      <p>You ran out of time. Try again.</p>
+      <button onclick="restartGame()">Restart</button>
+    </section>
+
+    <!-- Win Screen -->
+    <section id="win-screen" class="hidden">
+      <h2>Certificate of Safety</h2>
+      <p id="certificate-name"></p>
+      <p>Congratulations! You selected the correct PPE for every job site.</p>
+      <button onclick="restartGame()">Play Again</button>
+    </section>
+
+  </div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+
+    
+</body>
+</html>
