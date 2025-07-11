@@ -178,3 +178,84 @@ button:hover {
 .shake {
   animation: shake 0.3s ease;
 }
+
+#certificate {
+  background-color: #fffbe6;
+  border: 5px solid #bfa46f;
+  padding: 40px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 700px;
+  margin: auto;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  font-family: 'Poller One', serif;
+}
+
+#certificate h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.cert-label {
+  font-size: 1rem;
+  margin: 10px 0;
+  color: #555;
+}
+
+.cert-name {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 5px 0 20px;
+  color: #006400;
+}
+
+.cert-desc {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: #333;
+  padding: 0 10px;
+}
+
+.cert-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding: 0 20px;
+}
+
+.cert-footer .label {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.cert-footer .line {
+  border-bottom: 1px solid #000;
+  width: 150px;
+  margin-top: 5px;
+}
+
+.date {
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+#print-button {
+  margin-top: 20px;
+}
+
+/* Print-friendly */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #certificate, #certificate * {
+    visibility: visible;
+  }
+  #certificate {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

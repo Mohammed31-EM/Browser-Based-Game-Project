@@ -26,7 +26,7 @@ if (!playerName) {
   document.getElementById("home-screen").classList.add("hidden")
   document.getElementById("level-screen").classList.remove("hidden")
   document.getElementById("instructions").classList.add("hidden")
-
+  document.getElementById("win-screen").classList.add("hiddden")
   // Set up level 1
   setupLevel(currentLevel)
 
@@ -77,3 +77,49 @@ function setupLevel(levelNumber) {
   // (Later: Dynamically load PPE options here too)
 }
 
+function startTimer() {
+  let timerDisplay = document.getElementById("timer")
+
+  let interval = setInterval(function () {
+
+    if (totalTime <= 0) {
+      clearInterval(interval)
+      showTimeoutScreen()
+      return
+    }
+
+    totalTime = totalTime - 1
+
+    let minutes = Math.floor(totalTime / 60)
+    let seconds = totalTime % 60
+
+    if (seconds < 10) {
+      seconds += "0" 
+    }
+
+    timerDisplay.textContent = "Time Left: " + minutes + ":" + seconds
+
+  }, 1000)
+}
+
+function showCertificate() {
+  document.getElementById("level-screen").classList.add("hidden");
+  document.getElementById("win-screen").classList.remove("hidden");
+  document.getElementById("certificate-name").textContent = `Awarded to: ${playerName}`
+}
+
+
+function showCertificate() {
+  document.getElementById("level-screen").classList.add("hidden")
+  document.getElementById("win-screen").classList.remove("hidden")
+
+  
+  document.getElementById("certificate-name").textContent = playerName
+  const today = new Date().toLocaleDateString()
+  document.getElementById("certificate-date").textContent = today
+}
+
+window.onload = function () {
+  playerName = "Mohammed"; // Simulated player name
+  showCertificate();         
+};

@@ -65,10 +65,24 @@
 
     <!-- Win Screen -->
     <section id="win-screen" class="hidden">
-      <h2>Certificate of Safety</h2>
-      <p id="certificate-name"></p>
-      <p>Congratulations! You selected the correct PPE for every job site.</p>
-      <button onclick="restartGame()">Play Again</button>
+      <h2>CERTIFICATE OF SAFETY</h2>
+    <p class="cert-label">This is proudly awarded to</p>
+    <p id="certificate-name" class="cert-name">[Player Name]</p>
+    <p class="cert-desc">
+      For demonstrating excellent memory and proper safety gear awareness across all job sites in the PPE Memory Challenge.
+    </p>
+    <div class="cert-footer">
+      <div>
+        <p class="label">Instructor Signature</p>
+        <div class="line"></div>
+      </div>
+      <div>
+        <p class="label">Date</p>
+        <p class="date" id="certificate-date"></p>
+      </div>
+    </div>
+    <button onclick="restartGame()">Play Again</button>
+    <button onclick="window.print()">Print Certificate</button>
     </section>
 
   </div>
