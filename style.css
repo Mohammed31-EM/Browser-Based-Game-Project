@@ -1,7 +1,7 @@
 /* === Reset & Base === */
 
 @import url('https://fonts.googleapis.com/css2?family=Manufacturing+Consent&family=Permanent+Marker&family=Poller+One&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Manufacturing+Consent&family=Permanent+Marker&family=Poller+One&family=Russo+One&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,7 +9,7 @@
 }
 
 body {
-  font-family: "Permanent Marker", sans-serif;
+  font-family: "Russo One", sans-serif;
   font-weight: 100;
   background-color: darkgreen;
   color:black;
@@ -60,9 +60,13 @@ input[type="text"] {
   
 }
 
+#instructions p{
+    text-align: left;
+}
 
 /* === Buttons === */
 button {
+ 
   padding: 10px 20px;
   font-size: 1rem;
   margin-top: 15px;
