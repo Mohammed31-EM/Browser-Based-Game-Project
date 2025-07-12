@@ -1,6 +1,6 @@
 let playerName = ''
 let selectedGender = ''
-let currentLevel = 7
+let currentLevel = 1
 let totalTime = 300 //5 minutes to seconds
 
 function startGame(gender) {

@@ -21,8 +21,8 @@ body {
 
 /* === Container === */
 #game-container {
-  width: 100%;
-  max-width: 800px;
+  width: 90%;
+  max-width: 100rem;
   padding: 20px;
 }
 
@@ -128,7 +128,7 @@ button:hover {
 }
 #level-bg {
   width: 100%;
-  max-width: 600px;
+  max-width: 1000px;
   height: auto;
   border-radius: 8px;
   margin-bottom: 15px;
