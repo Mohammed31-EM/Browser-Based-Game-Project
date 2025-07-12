@@ -69,11 +69,12 @@ function setupLevel(levelNumber) {
         image:"assets/backgrounds/ElectricalRoom_Background.png"
     }
 
+
 };
 
   levelTitle.textContent = levelData[levelNumber].name
   levelBg.src = levelData[levelNumber].image
-
+  loadPPEOptions(levelNumber);
   // (Later: Dynamically load PPE options here too)
 }
 
@@ -123,3 +124,62 @@ window.onload = function () {
   playerName = "Mohammed"; // Simulated player name
   showCertificate();         
 };
+
+const levelPPE = {
+  1: ["hard-hat", "steel-boots", "hi-vis-vest", "safety-gloves", "safety-goggles"]
+  // Add others later
+};
+
+function loadPPEOptions(level) {
+  const inventory = document.getElementById("ppe-inventory");
+  inventory.innerHTML = ""; // Clear previous
+
+  const allPPE = [
+    { id: "hard-hat", src: "assets/ppe/ConstructionSite/HardHelmet_ConstructionSite.svg", label: "Hard Hat" },
+    { id: "steel-boots", src: "assets/ppe/ConstructionSite/SafetyBoot_ConstructionSite.svg", label: "Steel-Toe Boots" },
+    { id: "hi-vis-vest", src: "assets/ppe/ConstructionSite/SafetyVest_ConstructionSite.svg", label: "Hi-Vis Vest" },
+    { id: "safety-gloves", src: "assets/ppe/safety-gloves.svg", label: "Safety Gloves" },
+    { id: "safety-goggles", src: "assets/ppe/ConstructionSite/SafetyGoggles_ConstructionSite.svg", label: "Safety Goggles" },
+    // Future: add other level PPE here
+  ];
+
+  allPPE.forEach(item => {
+    const img = document.createElement("img");
+    img.src = item.src;
+    img.alt = item.label;
+    img.classList.add("ppe-item");
+    img.dataset.ppeId = item.id;
+
+    img.addEventListener("click", () => {
+      img.classList.toggle("selected");
+    });
+
+    inventory.appendChild(img);
+  });
+}
+
+function submitPPE() {
+  const selected = Array.from(document.querySelectorAll(".ppe-item.selected"))
+    .map(img => img.dataset.ppeId);
+
+  const required = levelPPE[currentLevel];
+
+  const isCorrect = required.every(item => selected.includes(item)) && selected.length === required.length;
+
+  if (isCorrect) {
+    // Advance to next level or win
+    currentLevel++;
+    totalTime -= 30;
+
+    if (currentLevel > 7) {
+      showWinScreen();
+    } else {
+      setupLevel(currentLevel);
+    }
+  } else {
+    showHazardScreen();
+    setTimeout(() => {
+      restartGame();
+    }, 2500);
+  }
+}
