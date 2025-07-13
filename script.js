@@ -19,12 +19,18 @@ if (!playerName) {
   }
 
   nameInput.classList.remove("input-error")
-  selectedGender = gender;
+  selectedGender = gender
+
+  document.getElementById("player-avatar").src = 
+  gender === 'female' ? 'assets/avatars/Female_Levels_NoBackground.svg' 
+                      : 'assets/avatars/Male_Levels_NoBackground.svg'
 
   document.getElementById("home-screen").classList.add("hidden")
   document.getElementById("level-screen").classList.remove("hidden")
   document.getElementById("instructions").classList.add("hidden")
   document.getElementById("win-screen").classList.add("hiddden")
+
+
   
   setupLevel(currentLevel)
 
@@ -190,7 +196,17 @@ function submitPPE() {
   }
 }
 
-document.getElementById("player-avatar").src = 
-  gender === 'female' ? 'assets/avatars/Female_Levels_NoBackground.svg' 
-                      : 'assets/avatars/Male_Levels_NoBackground.svg'
+function showHazardScreen() {
+  document.getElementById("level-screen").classList.add("hidden");
+  document.getElementById("hazard-screen").classList.remove("hidden");
+}
+
+function restartGame() {
+  currentLevel = 1;
+  totalTime = 300;
+  document.getElementById("hazard-screen").classList.add("hidden");
+  document.getElementById("timeout-screen").classList.add("hidden");
+  document.getElementById("win-screen").classList.add("hidden");
+  document.getElementById("home-screen").classList.remove("hidden");
+}
 
