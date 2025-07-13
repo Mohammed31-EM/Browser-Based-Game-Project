@@ -1,41 +1,38 @@
 let playerName = ''
 let selectedGender = ''
-let currentLevel = 1
+let currentLevel = 7
 let totalTime = 300 
 
 function startGame(gender) {
   const nameInput = document.getElementById("player-name")
   playerName = nameInput.value.trim()
 
-if (!playerName) {
-    
+  if (!playerName) {
     nameInput.classList.add("input-error")
-
-    
     nameInput.classList.add("shake")
     setTimeout(() => nameInput.classList.remove("shake"), 500)
-
     return
   }
 
   nameInput.classList.remove("input-error")
   selectedGender = gender
 
-  document.getElementById("player-avatar").src = 
-  gender === 'female' ? 'assets/avatars/Female_Levels_NoBackground.svg' 
-                      : 'assets/avatars/Male_Levels_NoBackground.svg'
+
+  const avatar = document.getElementById("player-avatar")
+  avatar.src = gender === 'female'
+    ? 'assets/avatars/Female_Levels_NoBackground.svg'
+    : 'assets/avatars/Male_Levels_NoBackground.svg'
+
 
   document.getElementById("home-screen").classList.add("hidden")
   document.getElementById("level-screen").classList.remove("hidden")
   document.getElementById("instructions").classList.add("hidden")
-  document.getElementById("win-screen").classList.add("hiddden")
+  document.getElementById("win-screen").classList.add("hidden") // <- Typo was: 'hiddden'
 
-
-  
   setupLevel(currentLevel)
-
   startTimer()
 }
+
 
 function setupLevel(levelNumber) {
   const levelTitle = document.getElementById("level-title")
@@ -78,6 +75,37 @@ function setupLevel(levelNumber) {
   levelTitle.textContent = levelData[levelNumber].name
   levelBg.src = levelData[levelNumber].image
   loadPPEOptions(levelNumber)
+
+  const avatar = document.getElementById("player-avatar");
+
+  const avatarPosition = {
+    1: { bottom: '10%', left: '50%' },
+    2: { bottom: '0.5%', left: '50%' },
+    3: { bottom: '6%', left: '50%' },
+    4: { bottom: '6%', left: '50%' },
+    5: { bottom: '7%', left: '50%' },
+    6: { bottom: '9%', left: '50%' },
+    7: { bottom: '4%', left: '45%' },
+  };
+ const avatarSize = {
+    1: '50%',
+    2: '80%',
+    3: '50%',
+    4: '50%',
+    5: '50%',
+    6: '50%',
+    7: '50%'
+  };
+  const isMobile = window.innerWidth <= 600;
+  avatar.style.height = isMobile ? '18%' : avatarSize[levelNumber];
+
+  const pos = avatarPosition[levelNumber];
+  avatar.style.bottom = pos.bottom;
+  avatar.style.left = pos.left;
+  avatar.style.transform = 'translateX(-50%)';
+  avatar.style.height = avatarSize[levelNumber];  // ← This sets different height
+  avatar.style.width = 'auto';
+
   
 }
 
@@ -106,19 +134,12 @@ function startTimer() {
   }, 1000)
 }
 
-function showCertificate() {
-  document.getElementById("level-screen").classList.add("hidden");
-  document.getElementById("win-screen").classList.remove("hidden");
-  document.getElementById("certificate-name").textContent = `Awarded to: ${playerName}`
-}
-
 
 function showCertificate() {
   document.getElementById("level-screen").classList.add("hidden")
   document.getElementById("win-screen").classList.remove("hidden")
 
-  
-  document.getElementById("certificate-name").textContent = playerName
+  document.getElementById("certificate-name").textContent = `Awarded to: ${playerName}`
   const today = new Date().toLocaleDateString()
   document.getElementById("certificate-date").textContent = today
 }
@@ -126,12 +147,12 @@ function showCertificate() {
 
 const levelPPE = {
   1: ["hard-hat", "steel-boots", "hi-vis-vest", "safety-gloves", "safety-goggles"],
-  2: ["face-mask", "lab-coat", "safety-goggles", "steel-boots"],
-  3: ["face-mask", "fire-proof-vest", "safety-googles", "safety-gloves","safety-boots"],
-  4: ["face-shield", "thermal-suit", "safety-googles", "safety-gloves",],
-  5: ["face-mask", "fire-proof-vest", "safety-googles", "safety-gloves"],
-  6: ["face-mask", "fire-proof-vest", "safety-googles", "safety-gloves"],
-  7: ["face-mask", "fire-proof-vest", "safety-googles", "safety-gloves"]
+  2: ["face-mask", "lab-coat", "safety-goggles", "steel-boots", "safety-gloves"],
+  3: ["face-mask", "fire-proof-vest", "safety-goggles", "safety-gloves","safety-boots"],
+  4: ["face-shield", "thermal-suit", "safety-goggles", "safety-gloves",],
+  5: ["face-mask", "fire-proof-vest", "safety-goggles", "safety-gloves"],
+  6: ["face-mask", "fire-proof-vest", "safety-goggles", "safety-gloves"],
+  7: ["face-mask", "fire-proof-vest", "safety-goggles", "safety-gloves"]
 };
 
 function loadPPEOptions(level) {
@@ -142,7 +163,7 @@ function loadPPEOptions(level) {
     { id: "hard-hat", src: "assets/ppe/ConstructionSite/HardHelmet_ConstructionSite.svg", label: "Hard Hat" },
     { id: "steel-boots", src: "assets/ppe/ConstructionSite/SafetyBoot_ConstructionSite.svg", label: "Steel-Toe Boots" },
     { id: "hi-vis-vest", src: "assets/ppe/ConstructionSite/SafetyVest_ConstructionSite.svg", label: "Hi-Vis Vest" },
-    { id: "safety-gloves", src: "assets/ppe/safety-gloves.svg", label: "Safety Gloves" },
+    { id: "safety-gloves", src: "assets/ppe/ConstructionSite/SafetyGloves_ConstructionSite.svg", label: "Safety Gloves" },
     { id: "safety-goggles", src: "assets/ppe/ConstructionSite/SafetyGoggles_ConstructionSite.svg", label: "Safety Goggles" },
     { id: "fire-proof-vest", src: "assets/ppe/OilRefinary/FireSuit_OilRefinary.svg", label: "FireProof Vest"},
     { id: "ear-muffs", src: "assets/ppe/OilRefinary/EarMuffs_OilRefinary.svg", label: "Ear Muffs"},
@@ -174,27 +195,30 @@ function loadPPEOptions(level) {
 function submitPPE() {
   const selected = Array.from(document.querySelectorAll(".ppe-item.selected"))
     .map(img => img.dataset.ppeId)
+    .sort();
 
-  const required = levelPPE[currentLevel]
+  const required = (levelPPE[currentLevel] || []).slice().sort();
 
-  const isCorrect = required.every(item => selected.includes(item)) && selected.length === required.length
+  const isCorrect = selected.length === required.length &&
+                    selected.every((item, index) => item === required[index]);
 
   if (isCorrect) {
-    currentLevel++
-    totalTime -= 30
+    currentLevel++;
+    totalTime -= 30;
 
     if (currentLevel > 7) {
-      showWinScreen();
+      showCertificate();
     } else {
-      setupLevel(currentLevel)
+      setupLevel(currentLevel);
     }
   } else {
     showHazardScreen();
     setTimeout(() => {
-      restartGame()
-    }, 2500)
+      restartGame();
+    }, 2500);
   }
 }
+
 
 function showHazardScreen() {
   document.getElementById("level-screen").classList.add("hidden");
