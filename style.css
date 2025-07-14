@@ -330,7 +330,68 @@ button:hover {
   border-radius: 10px;
 }
 .signature-img {
-  width: 150px;
+  width: 160px;
   height: auto;
   margin-top: 10px;
+}
+.cert-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.signature-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signature-img {
+  height: 60px;
+  object-fit: contain;
+  margin-top: 0.5rem;
+}
+
+* Container holding background PPE */
+.floating-ppe-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* All PPE floating icons */
+.floating-ppe {
+  position: absolute;
+  width: 300px;
+  opacity: 0.9;
+  animation: bounce 10s ease-in-out infinite;
+}
+
+/* Customize each PPE position & delay */
+.ppe1 { top: 10%; left:10%; animation-delay: 0s; }
+.ppe2 { top: 40%; left: 85%; animation-delay: 0.8s; }
+.ppe3 { top: 70%; left: 1%; animation-delay: 1.6s; }
+.ppe4 { top: 30%; left: 60%; animation-delay: 1.2s; }
+
+/* Bouncing animation */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-100px);
+  }
+}
+
+#game-container {
+  position: relative;
+  z-index: 1;
 }

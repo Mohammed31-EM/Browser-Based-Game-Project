@@ -8,9 +8,18 @@
 
     <title>PPE GAME</title>
 </head>
-<body>
+
 
    <body>
+      <div class="floating-ppe-container">
+      
+  <img src="assets/ppe/ConstructionSite/HardHelmet_ConstructionSite.svg" class="floating-ppe ppe1" title = "1"/>
+  <img src="assets/ppe/ConstructionSite/SafetyGloves_ConstructionSite.svg" class="floating-ppe ppe2" title = "2"/>
+  <img src="assets/ppe/ConstructionSite/SafetyVest_ConstructionSite.svg" class="floating-ppe ppe3" title = "3" />
+  <img src="assets/ppe/ConstructionSite/SafetyGoggles_ConstructionSite.svg" class="floating-ppe ppe4" title=" 4"/>
+
+      </div>
+
   <div id="game-container">
 
     <!--  Home Screen -->
@@ -82,18 +91,21 @@
     <p class="cert-desc">
       For demonstrating excellent memory and proper safety gear awareness across all job sites in the PPE Memory Challenge.
     </p>
-    <div class="cert-footer">
-      <div>
-        <p class="label">Instructor Signature</p>
-        <div class="line"></div>
-        <img src="assets/signature/Kristina_sign.svg" alt="Instructor Signature" class="signature-img" />
-
-      </div>
-      <div>
-        <p class="label">Date</p>
-        <p class="date" id="certificate-date"></p>
-      </div>
+      <div class="cert-footer">
+    <div class="signature-block">
+      <p class="label">Instructor 1</p>
+      <img class="signature-img" src="assets/signature/Kristina_sign.svg" alt="Instructor 1 Signature" />
     </div>
+    <div class="signature-block">
+      <p class="label">Instructor 2</p>
+      <img class="signature-img" src="assets/signature/Arthur_sign.svg" alt="Instructor 2 Signature" />
+    </div>
+    <div>
+      <p class="label">Date</p>
+      <p class="date" id="certificate-date"></p>
+    </div>
+    </div>
+
     <button onclick="restartGame()">Play Again</button>
     <button onclick="window.print()">Print Certificate</button>
     </section>
@@ -104,7 +116,5 @@
   <script src="script.js"></script>
 </body>
 
-    
-</body>
 </html>
 
