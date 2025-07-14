@@ -58,14 +58,15 @@
       <button onclick="submitPPE()">Enter Site</button>
     </section>
 
-    <!-- Hazard Screen -->
-    <section id="hazard-screen" class="hidden">
-      <h2>Hazard Encountered!</h2>
-      <img id="hazard-img" src="" alt="Hazard Image" />
-      <p>You selected the wrong PPE. Restarting from Level 1...</p>
-      <button onclick="restartGame()">Restart</button>
-    </section>
-
+   <!-- Hazard Screen -->
+<section id="hazard-screen" class="hidden">
+  <h2>Hazard Encountered!</h2>
+  <div class="hazard-visual">
+    <img id="hazard-img" src="" alt="Hazard Image" />
+  </div>
+  <p>You selected the wrong PPE. Restarting from Level 1...</p>
+  <button onclick="restartGame()">Restart</button>
+</section>
     <!-- Time’s Up Screen -->
     <section id="timeout-screen" class="hidden">
       <h2>Time’s Up!</h2>

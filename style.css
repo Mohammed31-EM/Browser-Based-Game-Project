@@ -312,6 +312,20 @@ button:hover {
 #progress-bar {
   height: 100%;
   width: 0%;
-  background-color: #4caf50; /* Green */
-  transition: width 0.4s ease-in-out;
+  background-color: darkgreen;
+  transition: width 0.4s ease-in-out
+}
+
+.hazard-visual {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#hazard-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
 }
