@@ -329,3 +329,8 @@ button:hover {
   object-fit: cover;
   border-radius: 10px;
 }
+.signature-img {
+  width: 150px;
+  height: auto;
+  margin-top: 10px;
+}

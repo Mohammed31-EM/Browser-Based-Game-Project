@@ -101,33 +101,41 @@ function setupLevel(levelNumber) {
 }
 
 function startTimer() {
-  clearInterval(timerInterval)
-  countdownPlayed = false
+  clearInterval(timerInterval);
+  countdownPlayed = false;
 
-  const timerDisplay = document.getElementById("timer")
+  const timerDisplay = document.getElementById("timer");
 
   timerInterval = setInterval(() => {
+    // Safety stop: if time is up or game already ended
     if (totalTime <= 0) {
       clearInterval(timerInterval);
       sounds.ticking.pause();
-      sounds.ticking.currentTime = 0
-      showTimeoutScreen();
+      sounds.ticking.currentTime = 0;
+
+      // Only show timeout screen if not on win screen
+      const winScreenVisible = !document.getElementById("win-screen").classList.contains("hidden");
+      if (!winScreenVisible) {
+        showTimeoutScreen();
+      }
+
       return;
     }
 
     if (totalTime === 10 && !countdownPlayed) {
-      sounds.countdown.play()
-      countdownPlayed = true
+      sounds.countdown.play();
+      countdownPlayed = true;
     }
 
     totalTime--;
-    const minutes = Math.floor(totalTime / 60)
+    const minutes = Math.floor(totalTime / 60);
     let seconds = totalTime % 60;
-    if (seconds < 10) seconds = "0" + seconds
+    if (seconds < 10) seconds = "0" + seconds;
 
-    timerDisplay.textContent = `Time Left: ${minutes}:${seconds}`
-  }, 1000)
+    timerDisplay.textContent = `Time Left: ${minutes}:${seconds}`;
+  }, 1000);
 }
+
 
 function showCertificate() {
   document.getElementById("level-screen").classList.add("hidden")
