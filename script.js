@@ -3,6 +3,7 @@ let selectedGender = '';
 let currentLevel = 1;
 let totalTime = 300;
 let timerInterval = null;
+let countdownPlayed = false; // New flag
 
 // === Audio Effects ===
 const sounds = {
@@ -96,23 +97,28 @@ function setupLevel(levelNumber) {
   avatar.style.left = pos.left;
   avatar.style.transform = 'translateX(-50%)';
   avatar.style.width = 'auto';
+  updateProgressBar(levelNumber);
+
 }
 
 function startTimer() {
   clearInterval(timerInterval);
+  countdownPlayed = false;
 
   const timerDisplay = document.getElementById("timer");
 
   timerInterval = setInterval(() => {
     if (totalTime <= 0) {
       clearInterval(timerInterval);
-
-      // ✅ Stop ticking sound
       sounds.ticking.pause();
       sounds.ticking.currentTime = 0;
-
       showTimeoutScreen();
       return;
+    }
+
+    if (totalTime === 10 && !countdownPlayed) {
+      sounds.countdown.play();
+      countdownPlayed = true;
     }
 
     totalTime--;
@@ -223,6 +229,7 @@ function showTimeoutScreen() {
 function restartGame() {
   currentLevel = 1;
   totalTime = 300;
+  countdownPlayed = false;
   clearInterval(timerInterval);
   sounds.ticking.pause();
   sounds.ticking.currentTime = 0;
@@ -233,3 +240,10 @@ function restartGame() {
   document.getElementById("win-screen").classList.add("hidden");
   document.getElementById("home-screen").classList.remove("hidden");
 }
+
+function updateProgressBar(levelNumber) {
+  const bar = document.getElementById("progress-bar");
+  const percentage = ((levelNumber - 1) / 7) * 100;
+  bar.style.width = `${percentage}%`;
+}
+

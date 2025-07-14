@@ -299,3 +299,19 @@ button:hover {
     left: 0;
   }
 }
+
+#progress-container {
+  width: 80%;
+  height: 20px;
+  background-color: #ddd;
+  border-radius: 10px;
+  margin: 20px auto;
+  overflow: hidden;
+}
+
+#progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: #4caf50; /* Green */
+  transition: width 0.4s ease-in-out;
+}
