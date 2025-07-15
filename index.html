@@ -1,28 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js"></script>
-    <link rel="stylesheet" href="style.css" />
-
-    <title>PPE GAME</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="style.css" />
+  <title>PPE GAME</title>
 </head>
-   <body>
-      <div class="floating-ppe-container">
-      
-        <img src="assets/ppe/ConstructionSite/HardHelmet_ConstructionSite.svg" class="floating-ppe ppe1" title = "1"/>
-        <img src="assets/ppe/ConstructionSite/SafetyGloves_ConstructionSite.svg" class="floating-ppe ppe2" title = "2"/>
-        <img src="assets/ppe/ConstructionSite/SafetyVest_ConstructionSite.svg" class="floating-ppe ppe3" title = "3" />
-        <img src="assets/ppe/ConstructionSite/SafetyGoggles_ConstructionSite.svg" class="floating-ppe ppe4" title=" 4"/>
-
-      </div>
+<body>
+  <div class="floating-ppe-container">
+    <img src="assets/ppe/ConstructionSite/HardHelmet_ConstructionSite.svg" class="floating-ppe ppe1" title="1"/>
+    <img src="assets/ppe/ConstructionSite/SafetyGloves_ConstructionSite.svg" class="floating-ppe ppe2" title="2"/>
+    <img src="assets/ppe/ConstructionSite/SafetyVest_ConstructionSite.svg" class="floating-ppe ppe3" title="3" />
+    <img src="assets/ppe/ConstructionSite/SafetyGoggles_ConstructionSite.svg" class="floating-ppe ppe4" title="4"/>
+  </div>
 
   <div id="game-container">
-
+    <!-- Home Screen -->
     <section id="home-screen">
       <h1>PPE Memory Challenge</h1>
-      <h2>Equip Yourself with correct gear to survive the hazards.<h2>
+      <h2>Equip Yourself with correct gear to survive the hazards.</h2>
       <label for="player-name">Enter Your Name:</label>
       <input type="text" id="player-name" placeholder="Your Name" />
 
@@ -30,81 +27,85 @@
       <div class="character-select">
         <img src="assets/avatars/Female_Homepage_NoBackground.svg" alt="Female Character" onclick="startGame('female')" />
         <img src="assets/avatars/Male_HomePage_NoBackground.svg" alt="Male Character" onclick="startGame('male')" />
-        
       </div>
     </section>
-    <section id="instructions">
-        <p id="ins">Instructions:<br>
 
-            1. Enter your name and Choose the character to start the game.<br>
-            2. To Pass the levels, ensure to choose correct PPE depending on the site.<br>
-            3. Total of 5 minutes are avalaible to complete all levels.<br>
-            4. With Each passing Levels the time will reduce by 30 seconds.<br>
-            5. Choosing wrong PPE will lead to restart from level 1.
-        </p>
+    <section id="instructions">
+      <p id="ins">
+        Instructions:<br>
+        1. Enter your name and choose the character to start the game.<br>
+        2. To pass the levels, ensure to choose correct PPE depending on the site.<br>
+        3. Total of 5 minutes are available to complete all levels.<br>
+        4. With each passing level the time will reduce by 30 seconds.<br>
+        5. Choosing wrong PPE will lead to restart from level 1.
+      </p>
     </section>
+
     <!-- Level Screen -->
     <section id="level-screen" class="hidden">
-            <div id="progress-container">
+      <div id="progress-container">
         <div id="progress-bar"></div>
       </div>
 
       <h2 id="level-title">Level 1: Construction Site</h2>
       <div id="timer">Time Left: 5:00</div>
       <div class="level-visual">
-          <img id="level-bg" src="assets/backgrounds/ConstructionSite_Background.png" alt="Site Background" />
-          <img id="player-avatar" src="assets/avatars/Male_Levels_NoBackground.svg" alt="Player Avatar" />
+        <img id="level-bg" src="assets/backgrounds/ConstructionSite_Background.png" alt="Site Background" />
+        <img id="player-avatar" src="assets/avatars/Male_Levels_NoBackground.svg" alt="Player Avatar" />
       </div>
 
       <div id="ppe-inventory-container">
-  <div id="ppe-inventory">
-  </div>
-</div>
-      <button onclick="submitPPE()">Enter Site</button>
+        <div id="ppe-inventory">
+          <!-- PPE items dynamically injected here -->
+        </div>
+      </div>
+      <button id="hint-button">Hint</button>
+      <p id="hint-text" class="hidden"></p>
+      <button id="submit-ppe">Enter Site</button>
     </section>
 
-   <!-- Hazard Screen -->
-<section id="hazard-screen" class="hidden">
-  <h2>Hazard Encountered!</h2>
-  <div class="hazard-visual">
-    <img id="hazard-img" src="" alt="Hazard Image" />
-  </div>
-  <p>You selected the wrong PPE. Restarting from Level 1...</p>
-  <button onclick="restartGame()">Restart</button>
-</section>
+    <!-- Hazard Screen -->
+    <section id="hazard-screen" class="hidden">
+      <h2>Hazard Encountered!</h2>
+      <div class="hazard-visual">
+        <img id="hazard-img" src="" alt="Hazard Image" />
+      </div>
+      <p>You selected the wrong PPE. Restarting from Level 1...</p>
+      <button id="restart-button">Restart</button>
+    </section>
+
+    <!-- Time’s Up Screen -->
     <section id="timeout-screen" class="hidden">
       <h2>Time’s Up!</h2>
       <p>You ran out of time. Try again.</p>
-      <button onclick="restartGame()">Restart</button>
+      <button id="restart-button">Restart</button>
     </section>
+
+    <!-- Win Screen -->
     <section id="win-screen" class="hidden">
       <h2>CERTIFICATE OF SAFETY</h2>
-    <p class="cert-label">This is proudly awarded to</p>
-    <p id="certificate-name" class="cert-name">[Player Name]</p>
-    <p class="cert-desc">
-      For demonstrating excellent memory and proper safety gear awareness across all job sites in the PPE Memory Challenge.
-    </p>
+      <p class="cert-label">This is proudly awarded to</p>
+      <p id="certificate-name" class="cert-name">[Player Name]</p>
+      <p class="cert-desc">
+        For demonstrating excellent memory and proper safety gear awareness across all job sites in the PPE Memory Challenge.
+      </p>
       <div class="cert-footer">
-    <div class="signature-block">
-      <p class="label">Instructor 1</p>
-      <img class="signature-img" src="assets/signature/Kristina_sign.svg" alt="Instructor 1 Signature" />
-    </div>
-    <div class="signature-block">
-      <p class="label">Instructor 2</p>
-      <img class="signature-img" src="assets/signature/Arthur_sign.svg" alt="Instructor 2 Signature" />
-    </div>
-    <div>
-      <p class="label">Date</p>
-      <p class="date" id="certificate-date"></p>
-    </div>
-    </div>
-
-    <button onclick="restartGame()">Play Again</button>
-    <button onclick="window.print()">Print Certificate</button>
+        <div class="signature-block">
+          <p class="label">Instructor 1</p>
+          <img class="signature-img" src="assets/signature/Kristina_sign.svg" alt="Instructor 1 Signature" />
+        </div>
+        <div class="signature-block">
+          <p class="label">Instructor 2</p>
+          <img class="signature-img" src="assets/signature/Arthur_sign.svg" alt="Instructor 2 Signature" />
+        </div>
+        <div>
+          <p class="label">Date</p>
+          <p class="date" id="certificate-date"></p>
+        </div>
+      </div>
+      <button id="restart-button">Play Again</button>
+      <button id="print-button">Print Certificate</button>
     </section>
-
   </div>
 </body>
-
 </html>
-

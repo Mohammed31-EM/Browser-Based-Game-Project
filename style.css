@@ -413,3 +413,14 @@ button:hover {
   text-align: center;
   color: #333;
 }
+
+
+.ppe-item.hinted {
+  box-shadow: 0 0 16px 4px gold, 0 0 0 4px #ffec80;
+  border: 2px solid gold;
+  animation: hint-glow 1s ease-in-out infinite alternate;
+}
+@keyframes hint-glow {
+  0% { box-shadow: 0 0 10px 2px gold; }
+  100% { box-shadow: 0 0 30px 8px gold; }
+}
