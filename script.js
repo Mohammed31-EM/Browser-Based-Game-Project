@@ -11,6 +11,51 @@ let totalTime = 300
 let timerInterval = null
 let countdownPlayed = false
 
+const levelData = {
+    1: { name: "Level 1: Construction Site", image: "assets/backgrounds/ConstructionSite_Background.png" },
+    2: { name: "Level 2: Chemical Lab", image: "assets/backgrounds/ChemicalLab_Background.png" },
+    3: { name: "Level 3: Oil Refinery Site", image: "assets/backgrounds/OilRefinary_Background.png" },
+    4: { name: "Level 4: Cold Storage", image: "assets/backgrounds/ColdStorage_Background.png" },
+    5: { name: "Level 5: Factory", image: "assets/backgrounds/Factory_Background.png" },
+    6: { name: "Level 6: Underground Tunnel", image: "assets/backgrounds/Undergroundtunnel_Background.png" },
+    7: { name: "Level 7: High Voltage Electrical Room", image: "assets/backgrounds/ElectricalRoom_Background.png" }
+  }
+
+const allPPE = [
+    { id: "hard-hat", src: "assets/ppe/ConstructionSite/HardHelmet_ConstructionSite.svg", label: "Hard Hat" },
+    { id: "steel-boots", src: "assets/ppe/ConstructionSite/SafetyBoot_ConstructionSite.svg", label: "Steel-Toe Boots" },
+    { id: "hi-vis-vest", src: "assets/ppe/ConstructionSite/SafetyVest_ConstructionSite.svg", label: "Hi-Vis Vest" },
+    { id: "safety-gloves", src: "assets/ppe/ConstructionSite/SafetyGloves_ConstructionSite.svg", label: "Safety Gloves" },
+    { id: "safety-goggles", src: "assets/ppe/ConstructionSite/SafetyGoggles_ConstructionSite.svg", label: "Safety Goggles" },
+    { id: "fire-proof-vest", src: "assets/ppe/OilRefinary/FireSuit_OilRefinary.svg", label: "FireProof Vest" },
+    { id: "ear-muffs", src: "assets/ppe/OilRefinary/EarMuffs_OilRefinary.svg", label: "Ear Muffs" },
+    { id: "face-mask", src: "assets/ppe/ChemicalLab/Facemask_ChemicalLab.svg", label: "Face Mask" },
+    { id: "lab-coat", src: "assets/ppe/ChemicalLab/LabCoat_ChemicalLab.svg", label: "Lab Coat" },
+    { id: "face-shield", src: "assets/ppe/ColdStorage/FaceShield_ColdStorage.svg", label: "Face Shield" },
+    { id: "hat-light", src: "assets/ppe/UndergroundTunnel/HardHatLight_UndergroundTunnel.svg", label: "Hard Hat Light" },
+    { id: "thermal-suit", src: "assets/ppe/ColdStorage/ThermalSuit_ColdStorage.svg", label: "Thermal Suit" },
+    { id: "arc-suit", src: "assets/ppe/ElectricalRoom/ArcFlashSuit_ElectricalRoom.svg", label: "Arc Suit" }
+]
+
+const levelPPE = {
+  1: ["hard-hat", "hi-vis-vest", "steel-boots", "safety-gloves", "safety-goggles"],
+  2: ["lab-coat", "face-mask", "safety-goggles", "safety-gloves", "steel-boots"],
+  3: ["fire-proof-vest", "face-mask", "safety-goggles", "safety-gloves", "steel-boots", "ear-muffs"],
+  4: ["thermal-suit", "face-shield", "safety-goggles", "safety-gloves", "steel-boots"],
+  5: ["fire-proof-vest", "face-mask", "safety-gloves", "safety-goggles", "steel-boots"],
+  6: ["fire-proof-vest", "face-mask", "safety-goggles", "safety-gloves", "hat-light", "steel-boots"],
+  7: ["arc-suit", "face-mask", "safety-goggles", "safety-gloves", "steel-boots"]
+}
+
+const levelImages = {
+    1: "ConstructionSite_Hazard.png",
+    2: "ChemicalLab_Hazard.png",
+    3: "OilRefinary_Hazard.png",
+    4: "ColdStorage_Hazard.png",
+    5: "Factory_Hazard.png",
+    6: "UndergroundTunnel_Hazard.png",
+    7: "ElectricalRoom_Hazard.png"
+  }
 
 const sounds = {
   selection: new Audio('assets/sounds/selection_sound.ogg'),
@@ -23,7 +68,27 @@ const sounds = {
   gameWon: new Audio('assets/sounds/game won.ogg'),
   countdown: new Audio('assets/sounds/countdowntimer.ogg'),
   score: new Audio('assets/sounds/score added.ogg')
-};
+}
+
+const avatarPosition = {
+    1: { bottom: '10%', left: '50%' },
+    2: { bottom: '0.5%', left: '50%' },
+    3: { bottom: '6%', left: '50%' },
+    4: { bottom: '6%', left: '50%' },
+    5: { bottom: '7%', left: '50%' },
+    6: { bottom: '9%', left: '50%' },
+    7: { bottom: '4%', left: '45%' }
+  }
+
+const avatarSize = {
+    1: '50%',
+    2: '80%',
+    3: '50%',
+    4: '50%',
+    5: '50%',
+    6: '50%',
+    7: '50%'
+  }
 
 function startGame(gender) {
   const nameInput = document.getElementById("player-name")
@@ -59,40 +124,13 @@ function setupLevel(levelNumber) {
   const levelTitle = document.getElementById("level-title")
   const levelBg = document.getElementById("level-bg")
 
-  const levelData = {
-    1: { name: "Level 1: Construction Site", image: "assets/backgrounds/ConstructionSite_Background.png" },
-    2: { name: "Level 2: Chemical Lab", image: "assets/backgrounds/ChemicalLab_Background.png" },
-    3: { name: "Level 3: Oil Refinery Site", image: "assets/backgrounds/OilRefinary_Background.png" },
-    4: { name: "Level 4: Cold Storage", image: "assets/backgrounds/ColdStorage_Background.png" },
-    5: { name: "Level 5: Factory", image: "assets/backgrounds/Factory_Background.png" },
-    6: { name: "Level 6: Underground Tunnel", image: "assets/backgrounds/Undergroundtunnel_Background.png" },
-    7: { name: "Level 7: High Voltage Electrical Room", image: "assets/backgrounds/ElectricalRoom_Background.png" }
-  }
+
 
   levelTitle.textContent = levelData[levelNumber].name
   levelBg.src = levelData[levelNumber].image
   loadPPEOptions(levelNumber)
 
   const avatar = document.getElementById("player-avatar")
-  const avatarPosition = {
-    1: { bottom: '10%', left: '50%' },
-    2: { bottom: '0.5%', left: '50%' },
-    3: { bottom: '6%', left: '50%' },
-    4: { bottom: '6%', left: '50%' },
-    5: { bottom: '7%', left: '50%' },
-    6: { bottom: '9%', left: '50%' },
-    7: { bottom: '4%', left: '45%' }
-  }
-
-  const avatarSize = {
-    1: '50%',
-    2: '80%',
-    3: '50%',
-    4: '50%',
-    5: '50%',
-    6: '50%',
-    7: '50%'
-  }
 
   const isMobile = window.innerWidth <= 600
   avatar.style.height = isMobile ? '18%' : avatarSize[levelNumber]
@@ -153,42 +191,15 @@ function showCertificate() {
   sounds.gameWon.play()
 }
 
-const levelPPE = {
-  1: ["hard-hat", "hi-vis-vest", "steel-boots", "safety-gloves", "safety-goggles"],
-  2: ["lab-coat", "face-mask", "safety-goggles", "safety-gloves", "steel-boots"],
-  3: ["fire-proof-vest", "face-mask", "safety-goggles", "safety-gloves", "steel-boots", "ear-muffs"],
-  4: ["thermal-suit", "face-shield", "safety-goggles", "safety-gloves", "steel-boots"],
-  5: ["fire-proof-vest", "face-mask", "safety-gloves", "safety-goggles", "steel-boots"],
-  6: ["fire-proof-vest", "face-mask", "safety-goggles", "safety-gloves", "hat-light", "steel-boots"],
-  7: ["arc-suit", "face-mask", "safety-goggles", "safety-gloves", "steel-boots"]
-};
 
 function loadPPEOptions(level) {
   const inventory = document.getElementById("ppe-inventory");
   inventory.innerHTML = "";
 
-  const allPPE = [
-    { id: "hard-hat", src: "assets/ppe/ConstructionSite/HardHelmet_ConstructionSite.svg", label: "Hard Hat" },
-    { id: "steel-boots", src: "assets/ppe/ConstructionSite/SafetyBoot_ConstructionSite.svg", label: "Steel-Toe Boots" },
-    { id: "hi-vis-vest", src: "assets/ppe/ConstructionSite/SafetyVest_ConstructionSite.svg", label: "Hi-Vis Vest" },
-    { id: "safety-gloves", src: "assets/ppe/ConstructionSite/SafetyGloves_ConstructionSite.svg", label: "Safety Gloves" },
-    { id: "safety-goggles", src: "assets/ppe/ConstructionSite/SafetyGoggles_ConstructionSite.svg", label: "Safety Goggles" },
-    { id: "fire-proof-vest", src: "assets/ppe/OilRefinary/FireSuit_OilRefinary.svg", label: "FireProof Vest" },
-    { id: "ear-muffs", src: "assets/ppe/OilRefinary/EarMuffs_OilRefinary.svg", label: "Ear Muffs" },
-    { id: "face-mask", src: "assets/ppe/ChemicalLab/Facemask_ChemicalLab.svg", label: "Face Mask" },
-    { id: "lab-coat", src: "assets/ppe/ChemicalLab/LabCoat_ChemicalLab.svg", label: "Lab Coat" },
-    { id: "face-shield", src: "assets/ppe/ColdStorage/FaceShield_ColdStorage.svg", label: "Face Shield" },
-    { id: "hat-light", src: "assets/ppe/UndergroundTunnel/HardHatLight_UndergroundTunnel.svg", label: "Hard Hat Light" },
-    { id: "thermal-suit", src: "assets/ppe/ColdStorage/ThermalSuit_ColdStorage.svg", label: "Thermal Suit" },
-    { id: "arc-suit", src: "assets/ppe/ElectricalRoom/ArcFlashSuit_ElectricalRoom.svg", label: "Arc Suit" }
-  ];
-
-  allPPE.forEach(item => {
-    
+    allPPE.forEach(item => {
     const wrapper = document.createElement("div");
     wrapper.classList.add("ppe-wrapper");
 
-    // Create image element
     const img = document.createElement("img");
     img.src = item.src;
     img.alt = item.label;
@@ -201,13 +212,13 @@ function loadPPEOptions(level) {
     });
 
     const label = document.createElement("div");
-    label.classList.add("ppe-label");
     label.textContent = item.label;
+    label.classList.add("ppe-label");
 
     wrapper.appendChild(img);
     wrapper.appendChild(label);
     inventory.appendChild(wrapper);
-  });
+  })
 }
 
 function submitPPE() {
@@ -238,16 +249,7 @@ function submitPPE() {
 }
 
 function showHazardScreen() {
-  const levelImages = {
-    1: "ConstructionSite_Hazard.png",
-    2: "ChemicalLab_Hazard.png",
-    3: "OilRefinary_Hazard.png",
-    4: "ColdStorage_Hazard.png",
-    5: "Factory_Hazard.png",
-    6: "UndergroundTunnel_Hazard.png",
-    7: "ElectricalRoom_Hazard.png"
-  };
-
+ 
   const hazardImg = document.getElementById("hazard-img")
   hazardImg.src = `assets/hazards/${levelImages[currentLevel]}`
 
