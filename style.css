@@ -21,8 +21,6 @@ body {
   max-width: 100rem;
   padding: 20px;
 }
-
-/* === Section Styling === */
 section {
   background: lightgreen;
   padding: 25px;
@@ -36,7 +34,6 @@ section {
   display: none;
 }
 
-/* === Headings === */
 h1, h2 {
   margin-bottom: 15px;
   font-weight: 400;
@@ -46,7 +43,6 @@ h1, h2 {
   font-size: 15px;
 }
 
-/* === Form Input === */
 input[type="text"] {
   padding: 10px;
   font-size: 1rem;
@@ -73,12 +69,10 @@ input[type="text"] {
   animation: shake 0.3s ease;
 }
 
-/* === Instructions Text === */
 #instructions p {
   text-align: left;
 }
 
-/* === Buttons === */
 button {
   padding: 10px 20px;
   font-size: 1rem;
@@ -92,10 +86,9 @@ button {
 }
 
 button:hover {
-  background-color: #145214;
+  background-color: darkgreen;
 }
 
-/* === Character Selection === */
 .character-select {
   display: flex;
   justify-content: center;
@@ -117,7 +110,6 @@ button:hover {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
-/* === Level Visual and Avatar === */
 .level-visual {
   position: relative;
   width: 100%;
@@ -146,7 +138,6 @@ button:hover {
   z-index: 2;
 }
 
-/* === PPE Inventory Scrollable Grid === */
 #ppe-inventory-container {
   overflow-x: auto;
   overflow-y: hidden;
@@ -179,7 +170,6 @@ button:hover {
   border-color: red;
 }
 
-/* === Timer === */
 #timer {
   font-weight: bold;
   font-size: 1.2rem;
@@ -187,7 +177,6 @@ button:hover {
   margin-bottom: 10px;
 }
 
-/* === Certificate === */
 #certificate {
   background-color: #fffbe6;
   border: 5px solid #bfa46f;
@@ -254,7 +243,6 @@ button:hover {
   margin-top: 20px;
 }
 
-/* === Responsive Adjustments === */
 @media (max-width: 600px) {
   .character-select {
     flex-direction: column;
@@ -283,7 +271,6 @@ button:hover {
   }
 }
 
-/* === Print Mode === */
 @media print {
   body * {
     visibility: hidden;
@@ -355,7 +342,7 @@ button:hover {
   margin-top: 0.5rem;
 }
 
-* Container holding background PPE */
+
 .floating-ppe-container {
   position: fixed;
   top: 0;
@@ -367,7 +354,6 @@ button:hover {
   overflow: hidden;
 }
 
-/* All PPE floating icons */
 .floating-ppe {
   position: absolute;
   width: 300px;
@@ -375,13 +361,11 @@ button:hover {
   animation: bounce 10s ease-in-out infinite;
 }
 
-/* Customize each PPE position & delay */
 .ppe1 { top: 10%; left:10%; animation-delay: 0s; }
 .ppe2 { top: 40%; left: 85%; animation-delay: 0.8s; }
 .ppe3 { top: 70%; left: 1%; animation-delay: 1.6s; }
 .ppe4 { top: 30%; left: 60%; animation-delay: 1.2s; }
 
-/* Bouncing animation */
 @keyframes bounce {
   0%, 100% {
     transform: translateY(0);
@@ -394,4 +378,38 @@ button:hover {
 #game-container {
   position: relative;
   z-index: 1;
+}
+
+#ppe-inventory {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.ppe-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+}
+
+.ppe-item {
+  width: 80px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.ppe-item.selected {
+  transform: scale(1.1);
+  border: 2px solid #4CAF50;
+  border-radius: 8px;
+}
+
+.ppe-label {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  text-align: center;
+  color: #333;
 }

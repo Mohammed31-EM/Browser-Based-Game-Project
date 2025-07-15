@@ -8,21 +8,18 @@
 
     <title>PPE GAME</title>
 </head>
-
-
    <body>
       <div class="floating-ppe-container">
       
-  <img src="assets/ppe/ConstructionSite/HardHelmet_ConstructionSite.svg" class="floating-ppe ppe1" title = "1"/>
-  <img src="assets/ppe/ConstructionSite/SafetyGloves_ConstructionSite.svg" class="floating-ppe ppe2" title = "2"/>
-  <img src="assets/ppe/ConstructionSite/SafetyVest_ConstructionSite.svg" class="floating-ppe ppe3" title = "3" />
-  <img src="assets/ppe/ConstructionSite/SafetyGoggles_ConstructionSite.svg" class="floating-ppe ppe4" title=" 4"/>
+        <img src="assets/ppe/ConstructionSite/HardHelmet_ConstructionSite.svg" class="floating-ppe ppe1" title = "1"/>
+        <img src="assets/ppe/ConstructionSite/SafetyGloves_ConstructionSite.svg" class="floating-ppe ppe2" title = "2"/>
+        <img src="assets/ppe/ConstructionSite/SafetyVest_ConstructionSite.svg" class="floating-ppe ppe3" title = "3" />
+        <img src="assets/ppe/ConstructionSite/SafetyGoggles_ConstructionSite.svg" class="floating-ppe ppe4" title=" 4"/>
 
       </div>
 
   <div id="game-container">
 
-    <!--  Home Screen -->
     <section id="home-screen">
       <h1>PPE Memory Challenge</h1>
       <h2>Equip Yourself with correct gear to survive the hazards.<h2>
@@ -61,7 +58,6 @@
 
       <div id="ppe-inventory-container">
   <div id="ppe-inventory">
-    <!-- PPE items dynamically injected here -->
   </div>
 </div>
       <button onclick="submitPPE()">Enter Site</button>
@@ -76,14 +72,11 @@
   <p>You selected the wrong PPE. Restarting from Level 1...</p>
   <button onclick="restartGame()">Restart</button>
 </section>
-    <!-- Time’s Up Screen -->
     <section id="timeout-screen" class="hidden">
       <h2>Time’s Up!</h2>
       <p>You ran out of time. Try again.</p>
       <button onclick="restartGame()">Restart</button>
     </section>
-
-    <!-- Win Screen -->
     <section id="win-screen" class="hidden">
       <h2>CERTIFICATE OF SAFETY</h2>
     <p class="cert-label">This is proudly awarded to</p>
@@ -111,8 +104,6 @@
     </section>
 
   </div>
-
-  <!-- JavaScript -->
   <script src="script.js"></script>
 </body>
 

@@ -1,9 +1,15 @@
-let playerName = '';
-let selectedGender = '';
-let currentLevel = 1;
-let totalTime = 300;
-let timerInterval = null;
-let countdownPlayed = false;
+//-------------------------------------------Constants---------------------------------------------------------- 
+//-------------------------------------------Variables--------------------------------------------------------- 
+//-------------------------------------------Event Listeners---------------------------------------------------- 
+//-------------------------------------------Functions--------------------------------------------------------- 
+
+
+let playerName = ''
+let selectedGender = ''
+let currentLevel = 1
+let totalTime = 300
+let timerInterval = null
+let countdownPlayed = false
 
 
 const sounds = {
@@ -21,7 +27,7 @@ const sounds = {
 
 function startGame(gender) {
   const nameInput = document.getElementById("player-name")
-  playerName = nameInput.value.trim();
+  playerName = nameInput.value.trim()
 
   if (!playerName) {
     nameInput.classList.add("input-error", "shake")
@@ -61,7 +67,7 @@ function setupLevel(levelNumber) {
     5: { name: "Level 5: Factory", image: "assets/backgrounds/Factory_Background.png" },
     6: { name: "Level 6: Underground Tunnel", image: "assets/backgrounds/Undergroundtunnel_Background.png" },
     7: { name: "Level 7: High Voltage Electrical Room", image: "assets/backgrounds/ElectricalRoom_Background.png" }
-  };
+  }
 
   levelTitle.textContent = levelData[levelNumber].name
   levelBg.src = levelData[levelNumber].image
@@ -76,7 +82,7 @@ function setupLevel(levelNumber) {
     5: { bottom: '7%', left: '50%' },
     6: { bottom: '9%', left: '50%' },
     7: { bottom: '4%', left: '45%' }
-  };
+  }
 
   const avatarSize = {
     1: '50%',
@@ -107,33 +113,32 @@ function startTimer() {
   const timerDisplay = document.getElementById("timer");
 
   timerInterval = setInterval(() => {
-    // Safety stop: if time is up or game already ended
+    
     if (totalTime <= 0) {
-      clearInterval(timerInterval);
-      sounds.ticking.pause();
-      sounds.ticking.currentTime = 0;
+      clearInterval(timerInterval)
+      sounds.ticking.pause()
+      sounds.ticking.currentTime = 0
 
-      // Only show timeout screen if not on win screen
-      const winScreenVisible = !document.getElementById("win-screen").classList.contains("hidden");
+      const winScreenVisible = !document.getElementById("win-screen").classList.contains("hidden")
       if (!winScreenVisible) {
-        showTimeoutScreen();
+        showTimeoutScreen()
       }
 
-      return;
+      return
     }
 
     if (totalTime === 10 && !countdownPlayed) {
-      sounds.countdown.play();
-      countdownPlayed = true;
+      sounds.countdown.play()
+      countdownPlayed = true
     }
 
-    totalTime--;
-    const minutes = Math.floor(totalTime / 60);
-    let seconds = totalTime % 60;
-    if (seconds < 10) seconds = "0" + seconds;
+    totalTime--
+    const minutes = Math.floor(totalTime / 60)
+    let seconds = totalTime % 60
+    if (seconds < 10) seconds = "0" + seconds
 
-    timerDisplay.textContent = `Time Left: ${minutes}:${seconds}`;
-  }, 1000);
+    timerDisplay.textContent = `Time Left: ${minutes}:${seconds}`
+  }, 1000)
 }
 
 
@@ -179,6 +184,11 @@ function loadPPEOptions(level) {
   ];
 
   allPPE.forEach(item => {
+    
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("ppe-wrapper");
+
+    // Create image element
     const img = document.createElement("img");
     img.src = item.src;
     img.alt = item.label;
@@ -190,19 +200,25 @@ function loadPPEOptions(level) {
       sounds.selection.play();
     });
 
-    inventory.appendChild(img);
+    const label = document.createElement("div");
+    label.classList.add("ppe-label");
+    label.textContent = item.label;
+
+    wrapper.appendChild(img);
+    wrapper.appendChild(label);
+    inventory.appendChild(wrapper);
   });
 }
 
 function submitPPE() {
   const selected = Array.from(document.querySelectorAll(".ppe-item.selected"))
     .map(img => img.dataset.ppeId)
-    .sort();
+    .sort()
 
-  const required = (levelPPE[currentLevel] || []).slice().sort();
+  const required = (levelPPE[currentLevel] || []).slice().sort()
 
   const isCorrect = selected.length === required.length &&
-                    selected.every((item, index) => item === required[index]);
+                    selected.every((item, index) => item === required[index])
 
   if (isCorrect) {
     currentLevel++;
@@ -232,34 +248,34 @@ function showHazardScreen() {
     7: "ElectricalRoom_Hazard.png"
   };
 
-  const hazardImg = document.getElementById("hazard-img");
-  hazardImg.src = `assets/hazards/${levelImages[currentLevel]}`;  // ✔️ Direct file path
+  const hazardImg = document.getElementById("hazard-img")
+  hazardImg.src = `assets/hazards/${levelImages[currentLevel]}`
 
-  document.getElementById("level-screen").classList.add("hidden");
-  document.getElementById("hazard-screen").classList.remove("hidden");
+  document.getElementById("level-screen").classList.add("hidden")
+  document.getElementById("hazard-screen").classList.remove("hidden")
   sounds.lostGame.play();
 }
 
 
 function showTimeoutScreen() {
-  document.getElementById("level-screen").classList.add("hidden");
-  document.getElementById("timeout-screen").classList.remove("hidden");
-  sounds.lostGame.play();
+  document.getElementById("level-screen").classList.add("hidden")
+  document.getElementById("timeout-screen").classList.remove("hidden")
+  sounds.lostGame.play()
 }
 
 function restartGame() {
-  currentLevel = 1;
-  totalTime = 300;
-  countdownPlayed = false;
-  clearInterval(timerInterval);
-  sounds.ticking.pause();
-  sounds.ticking.currentTime = 0;
-  sounds.newGame.play();
+  currentLevel = 1
+  totalTime = 300
+  countdownPlayed = false
+  clearInterval(timerInterval)
+  sounds.ticking.pause()
+  sounds.ticking.currentTime = 0
+  sounds.newGame.play()
 
-  document.getElementById("hazard-screen").classList.add("hidden");
-  document.getElementById("timeout-screen").classList.add("hidden");
-  document.getElementById("win-screen").classList.add("hidden");
-  document.getElementById("home-screen").classList.remove("hidden");
+  document.getElementById("hazard-screen").classList.add("hidden")
+  document.getElementById("timeout-screen").classList.add("hidden")
+  document.getElementById("win-screen").classList.add("hidden")
+  document.getElementById("home-screen").classList.remove("hidden")
 }
 
 function updateProgressBar(levelNumber) {
