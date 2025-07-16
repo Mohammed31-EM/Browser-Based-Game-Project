@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poller+One&family=Russo+One&display=swap');
 
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,11 +17,15 @@ body {
   min-height: 100vh;
 }
 
+
 #game-container {
+  position: relative;
+  z-index: 1;
   width: 90%;
   max-width: 100rem;
   padding: 20px;
 }
+
 section {
   background: lightgreen;
   padding: 25px;
@@ -43,6 +48,7 @@ h1, h2 {
   font-size: 15px;
 }
 
+
 input[type="text"] {
   padding: 10px;
   font-size: 1rem;
@@ -55,22 +61,6 @@ input[type="text"] {
 
 .input-error {
   border: 2px solid red !important;
-}
-
-@keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-  100% { transform: translateX(0); }
-}
-
-.shake {
-  animation: shake 0.3s ease;
-}
-
-#instructions p {
-  text-align: left;
 }
 
 button {
@@ -88,6 +78,19 @@ button {
 button:hover {
   background-color: darkgreen;
 }
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  25%  { transform: translateX(-5px); }
+  50%  { transform: translateX(5px); }
+  75%  { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.3s ease;
+}
+
 
 .character-select {
   display: flex;
@@ -138,6 +141,7 @@ button:hover {
   z-index: 2;
 }
 
+
 #ppe-inventory-container {
   overflow-x: auto;
   overflow-y: hidden;
@@ -147,9 +151,18 @@ button:hover {
 }
 
 #ppe-inventory {
-  display: inline-flex;
-  gap: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
   padding: 10px;
+}
+
+.ppe-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
 }
 
 .ppe-item {
@@ -167,8 +180,29 @@ button:hover {
 }
 
 .ppe-item.selected {
-  border-color: red;
+  transform: scale(1.1);
+  border: 2px solid #4CAF50;
+  border-radius: 8px;
 }
+
+.ppe-label {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  text-align: center;
+  color: #333;
+}
+
+
+.ppe-item.hinted {
+  box-shadow: 0 0 16px 4px gold, 0 0 0 4px #ffec80;
+  border: 2px solid gold;
+  animation: hint-glow 1s ease-in-out infinite alternate;
+}
+@keyframes hint-glow {
+  0%   { box-shadow: 0 0 10px 2px gold; }
+  100% { box-shadow: 0 0 30px 8px gold; }
+}
+
 
 #timer {
   font-weight: bold;
@@ -176,6 +210,36 @@ button:hover {
   color: #c0392b;
   margin-bottom: 10px;
 }
+
+#progress-container {
+  width: 80%;
+  height: 20px;
+  background-color: #ddd;
+  border-radius: 10px;
+  margin: 20px auto;
+  overflow: hidden;
+}
+#progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: darkgreen;
+  transition: width 0.4s ease-in-out;
+}
+
+
+.hazard-visual {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+#hazard-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
 
 #certificate {
   background-color: #fffbe6;
@@ -219,111 +283,6 @@ button:hover {
 .cert-footer {
   display: flex;
   justify-content: space-between;
-  margin-top: 30px;
-  padding: 0 20px;
-}
-
-.cert-footer .label {
-  font-size: 0.9rem;
-  color: #333;
-}
-
-.cert-footer .line {
-  border-bottom: 1px solid #000;
-  width: 150px;
-  margin-top: 5px;
-}
-
-.date {
-  font-weight: bold;
-  margin-top: 5px;
-}
-
-#print-button {
-  margin-top: 20px;
-}
-
-@media (max-width: 600px) {
-  .character-select {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .character-select img {
-    width: 80%;
-    max-width: 200px;
-  }
-
-  input[type="text"],
-  button {
-    width: 100%;
-  }
-
-  .level-visual {
-    aspect-ratio: auto;
-    height: 60vh;
-    max-height: 75vh;
-  }
-
-  #player-avatar {
-    height: 28%;
-    max-height: 100px;
-  }
-}
-
-@media print {
-  body * {
-    visibility: hidden;
-  }
-
-  #certificate, #certificate * {
-    visibility: visible;
-  }
-
-  #certificate {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-}
-
-#progress-container {
-  width: 80%;
-  height: 20px;
-  background-color: #ddd;
-  border-radius: 10px;
-  margin: 20px auto;
-  overflow: hidden;
-}
-
-#progress-bar {
-  height: 100%;
-  width: 0%;
-  background-color: darkgreen;
-  transition: width 0.4s ease-in-out
-}
-
-.hazard-visual {
-  position: relative;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-#hazard-img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 10px;
-}
-.signature-img {
-  width: 160px;
-  height: auto;
-  margin-top: 10px;
-}
-.cert-footer {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-top: 2rem;
   gap: 2rem;
@@ -337,11 +296,20 @@ button:hover {
 }
 
 .signature-img {
+  width: 160px;
   height: 60px;
   object-fit: contain;
-  margin-top: 0.5rem;
+  margin-top: 10px;
 }
 
+.date {
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+#print-button {
+  margin-top: 20px;
+}
 
 .floating-ppe-container {
   position: fixed;
@@ -353,74 +321,70 @@ button:hover {
   pointer-events: none;
   overflow: hidden;
 }
-
 .floating-ppe {
   position: absolute;
   width: 300px;
   opacity: 0.9;
   animation: bounce 10s ease-in-out infinite;
 }
-
-.ppe1 { top: 10%; left:10%; animation-delay: 0s; }
+.ppe1 { top: 10%; left: 10%; animation-delay: 0s; }
 .ppe2 { top: 40%; left: 85%; animation-delay: 0.8s; }
 .ppe3 { top: 70%; left: 1%; animation-delay: 1.6s; }
 .ppe4 { top: 30%; left: 60%; animation-delay: 1.2s; }
 
 @keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-100px); }
+}
+
+
+@media (max-width: 600px) {
+  .character-select {
+    flex-direction: column;
+    align-items: center;
   }
-  50% {
-    transform: translateY(-100px);
+  .character-select img {
+    width: 80%;
+    max-width: 200px;
+  }
+  input[type="text"], button {
+    width: 100%;
+  }
+  .level-visual {
+    aspect-ratio: auto;
+    height: 60vh;
+    max-height: 75vh;
+  }
+  #player-avatar {
+    height: 28%;
+    max-height: 100px;
   }
 }
 
-#game-container {
-  position: relative;
-  z-index: 1;
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #win-screen, #win-screen * {
+    visibility: visible !important;
+  }
+  #win-screen {
+    position: absolute !important;
+    top: 1 !important;
+    left: 0 !important;
+    width: 90vw !important;
+    height: 5vh !important;
+    background: wheat !important;
+    z-index: 9999 !important;
+  }
 }
-
-#ppe-inventory {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
+@media print {
+  #print-button {
+    display: none !important;
+  }
 }
-
-.ppe-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100px;
-}
-
-.ppe-item {
-  width: 80px;
-  height: auto;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.ppe-item.selected {
-  transform: scale(1.1);
-  border: 2px solid #4CAF50;
-  border-radius: 8px;
-}
-
-.ppe-label {
-  margin-top: 6px;
-  font-size: 0.75rem;
-  text-align: center;
-  color: #333;
-}
-
-
-.ppe-item.hinted {
-  box-shadow: 0 0 16px 4px gold, 0 0 0 4px #ffec80;
-  border: 2px solid gold;
-  animation: hint-glow 1s ease-in-out infinite alternate;
-}
-@keyframes hint-glow {
-  0% { box-shadow: 0 0 10px 2px gold; }
-  100% { box-shadow: 0 0 30px 8px gold; }
+@media print {
+  #restart-win {
+    display: none !important;
+  }
 }

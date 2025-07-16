@@ -223,50 +223,50 @@ function submitPPE() {
   const selected = Array.from(document.querySelectorAll(".ppe-item.selected"))
     .map(el => el.dataset.ppeId)
     .sort();
-  const required = levelPPE[currentLevel].slice().sort();
+  const required = levelPPE[currentLevel].slice().sort()
   const correct = selected.length === required.length &&
-    selected.every((v, i) => v === required[i]);
+    selected.every((v, i) => v === required[i])
 
   if (correct) {
-    currentLevel++;
-    totalTime -= 30;
-    sounds.score.play();
+    currentLevel++
+    totalTime -= 30
+    sounds.score.play()
     currentLevel > 7 ? showCertificate() : setupLevel(currentLevel);
   } else {
-    sounds.wrongPPE.play();
-    showHazardScreen();
-    setTimeout(restartGame, 2500);
+    sounds.wrongPPE.play()
+    showHazardScreen()
+    setTimeout(restartGame, 2500)
   }
 }
 
 function showHazardScreen() {
-  document.getElementById("hazard-img").src = `assets/hazards/${levelImages[currentLevel]}`;
-  document.getElementById("level-screen").classList.add("hidden");
-  document.getElementById("hazard-screen").classList.remove("hidden");
+  document.getElementById("hazard-img").src = `assets/hazards/${levelImages[currentLevel]}`
+  document.getElementById("level-screen").classList.add("hidden")
+  document.getElementById("hazard-screen").classList.remove("hidden")
 }
 
 function showTimeoutScreen() {
-  document.getElementById("level-screen").classList.add("hidden");
-  document.getElementById("timeout-screen").classList.remove("hidden");
+  document.getElementById("level-screen").classList.add("hidden")
+  document.getElementById("timeout-screen").classList.remove("hidden")
   sounds.lostGame.play();
 }
 
 function showCertificate() {
-  document.getElementById("level-screen").classList.add("hidden");
-  document.getElementById("win-screen").classList.remove("hidden");
-  document.getElementById("certificate-name").textContent = `Awarded to: ${playerName}`;
-  document.getElementById("certificate-date").textContent = new Date().toLocaleDateString();
+  document.getElementById("level-screen").classList.add("hidden")
+  document.getElementById("win-screen").classList.remove("hidden")
+  document.getElementById("certificate-name").textContent = `Awarded to: ${playerName}`
+  document.getElementById("certificate-date").textContent = new Date().toLocaleDateString()
   sounds.gameWon.play();
 }
 
 function restartGame() {
-  currentLevel = 1;
-  totalTime = 300;
-  countdownPlayed = false;
-  clearInterval(timerInterval);
-  sounds.ticking.pause();
-  sounds.ticking.currentTime = 0;
-  sounds.newGame.play();
+  currentLevel = 1
+  totalTime = 300
+  countdownPlayed = false
+  clearInterval(timerInterval)
+  sounds.ticking.pause()
+  sounds.ticking.currentTime = 0
+  sounds.newGame.play()
   ["hazard-screen", "timeout-screen", "win-screen"].forEach(id => {
     document.getElementById(id).classList.add("hidden");
   });
@@ -288,4 +288,4 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("print-button").addEventListener("click", () => window.print())
   document.getElementById("female-character").addEventListener("click", () => startGame("female"))
   document.getElementById("male-character").addEventListener("click", () => startGame("male"))
-});
+})
